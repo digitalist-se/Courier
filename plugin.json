@@ -1,0 +1,27 @@
+{
+    "name": "Courier",
+    "description": "Courier delivers messages to endpoints",
+    "version": "0.0.1",
+    "theme": false,
+    "require": {
+        "piwik": ">=3.11.0-stable,<4.0.0-b1"
+    },
+    "authors": [
+        {
+            "name": "Digitalist",
+            "email": "se.support@digitalistgroup.com",
+            "homepage": "https://digitalist-tech.se/"
+        },
+        {
+            "name": "Mikke Schirén",
+            "email": "mikke.schiren@digitalistgroup.com",
+            "homepage": "https://digitalist-tech.se/"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/digitalist-se/Courier/issues"
+    },
+    "homepage": "https://digitalist-tech.se/",
+    "license": "GPL v3+",
+    "keywords": []
+}
