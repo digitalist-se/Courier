@@ -23,9 +23,10 @@ class Courier extends Plugin
         try {
             $sql = "CREATE TABLE " . Common::prefixTable('courier_integration') . " (
                             id INT NOT NULL AUTO_INCREMENT ,
+                            type VARCHAR( 256 ) NOT NULL ,
+                            name VARCHAR( 256 ) NOT NULL ,
                             integration BLOB ,
                             date TIMESTAMP ,
-                            type VARCHAR( 256 ) NOT NULL ,
                             PRIMARY KEY ( id )
                         )  DEFAULT CHARSET=utf8 ";
             Db::exec($sql);

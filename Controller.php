@@ -23,12 +23,19 @@ class Controller extends ControllerAdmin
 
     public function addendpoint()
     {
+        $type = Common::getRequestVar('endpoint', 'webhook', 'string');
 
         if (isset($_SERVER['REQUEST_METHOD']) && 'POST' == $_SERVER['REQUEST_METHOD']) {
-            return var_dump($_POST);
+            if ($type == 'webhook') {
+                $integration = [
+                    'url' => $_POST['url']
+                ];
+            }
+            $serialized = serialize($integration);
+            $save = new CourierAPI();
+            $save->saveIntegration($type, $_POST['name'], $serialized);
+            $this->redirectToIndex('Courier', 'index');
         }
-
-        $type = Common::getRequestVar('endpoint', 'webhook', 'string');
 
         return $this->renderTemplate('@Courier/endpoint', [
             'integration' => $type,
