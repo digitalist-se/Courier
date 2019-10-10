@@ -1,26 +1,27 @@
 <?php
 /**
- * Piwik - free/libre analytics platform
+ * Courier, a plugin for Matomo.
  *
- * @link https://matomo.org
+ * @link https://digitalist.se
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 
 namespace Piwik\Plugins\Courier;
 
-use Piwik\DataTable;
-use Piwik\DataTable\Row;
+use Piwik\Piwik;
 
 /**
  * API for plugin Courier
  *
- * @method static \Piwik\Plugins\Courier\API getInstance()
+ * @method static API getInstance()
  */
 class API extends \Piwik\Plugin\API
 {
 
     public function getEndpoints()
     {
+
+       Piwik::checkUserIsNotAnonymous();
         $endpoints = [
             'webhook' => [
                 'name' => 'Webhook',
