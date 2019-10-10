@@ -1,0 +1,12 @@
+{% extends 'admin.twig' %}
+
+{% block content %}
+    <h2>Add Courier Endpoint</h2>
+
+    {% for key,value in endpoints %}
+        <div class="courier-endpoints">
+            <div><a href=""><img src="/plugins/Courier/assets/images/{{ key }}.png" class="courier-endpoint-image-listed" alt="{{ value.name }}" /></a></div>
+            <p>{{ value.description }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}

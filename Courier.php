@@ -10,4 +10,16 @@ namespace Piwik\Plugins\Courier;
 
 class Courier extends \Piwik\Plugin
 {
+    public function registerEvents()
+    {
+        return [
+            'AssetManager.getStylesheetFiles' => 'getStylesheetFiles',
+        ];
+    }
+
+    public function getStylesheetFiles(&$files)
+    {
+        $files[] = "plugins/Courier/assets/stylesheets/courier.css";
+    }
+
 }
