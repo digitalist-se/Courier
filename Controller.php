@@ -28,7 +28,8 @@ class Controller extends ControllerAdmin
         ]);
     }
 
-    private function availableEndpoints() {
+    private function availableEndpoints()
+    {
         $api = new CourierAPI();
         return $api->getEndpoints();
     }

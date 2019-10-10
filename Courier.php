@@ -21,5 +21,4 @@ class Courier extends \Piwik\Plugin
     {
         $files[] = "plugins/Courier/assets/stylesheets/courier.css";
     }
-
 }
