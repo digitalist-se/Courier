@@ -1,5 +1,6 @@
 {
   "Courier": {
-    "Courier": "Courier"
+    "Courier": "Courier",
+    "AddCourierEndpoint": "Add Courier Endpoint"
   }
 }

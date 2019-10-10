@@ -8,6 +8,7 @@
 
 namespace Piwik\Plugins\Courier;
 
+use Piwik\Common;
 use Piwik\Plugins\Courier\API as CourierAPI;
 use Piwik\Plugin\ControllerAdmin;
 
@@ -15,10 +16,25 @@ class Controller extends ControllerAdmin
 {
     public function index()
     {
-        return $this->renderTemplate('index', [
+        return $this->renderTemplate('@Courier/index', [
             'endpoints' => $this->availableEndpoints(),
         ]);
     }
+
+    public function addendpoint()
+    {
+
+        if (isset($_SERVER['REQUEST_METHOD']) && 'POST' == $_SERVER['REQUEST_METHOD']) {
+            return var_dump($_POST);
+        }
+
+        $type = Common::getRequestVar('endpoint', 'webhook', 'string');
+
+        return $this->renderTemplate('@Courier/endpoint', [
+            'integration' => $type,
+        ]);
+    }
+
 
     private function availableEndpoints()
     {

@@ -21,7 +21,7 @@ class API extends \Piwik\Plugin\API
     public function getEndpoints()
     {
 
-       Piwik::checkUserIsNotAnonymous();
+        Piwik::checkUserIsNotAnonymous();
         $endpoints = [
             'webhook' => [
                 'name' => 'Webhook',

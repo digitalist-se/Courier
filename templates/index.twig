@@ -1,12 +1,21 @@
 {% extends 'admin.twig' %}
 
+{% set title %}{{ 'Courier_AddCourierEndpoint'|translate }}{% endset %}
+
 {% block content %}
-    <h2>Add Courier Endpoint</h2>
+{% import 'macros.twig' as piwik %}
+    <div piwik-content-intro>
+        <h2 piwik-enriched-headline
+            help-url="https://github.com/digitalist-se/Courier/wiki"
+            id="location-providers">{{ title }}</h2>
+    </div>
+<div piwik-content-block>
 
     {% for key,value in endpoints %}
         <div class="courier-endpoints">
-            <div><a href=""><img src="/plugins/Courier/assets/images/{{ key }}.png" class="courier-endpoint-image-listed" alt="{{ value.name }}" /></a></div>
+            <div><a href="?module=Courier&endpoint={{ key }}&action=addendpoint"><img src="/plugins/Courier/assets/images/{{ key }}.png" class="courier-endpoint-image-listed" alt="{{ value.name }}" /></a></div>
             <p>{{ value.description }}</p>
         </div>
     {% endfor %}
+</div>
 {% endblock %}
