@@ -2,5 +2,6 @@
 
 ## Description
 
-Add your plugin description here.
+This plugin provides different configurable endpoints (like webhooks) to 
+deliver messages from Matomo.
 
