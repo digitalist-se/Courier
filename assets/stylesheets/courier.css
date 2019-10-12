@@ -1,3 +1,8 @@
 .courier-endpoint-image-listed {
     max-height: 30px;
 }
+
+.courier-no-border {
+    border: none;
+    text-decoration: none;
+}

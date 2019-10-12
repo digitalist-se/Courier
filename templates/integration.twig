@@ -1,6 +1,6 @@
 {% extends 'admin.twig' %}
 
-{% set title %}{{ 'Courier_AddCourierEndpoint'|translate }}{% endset %}
+{% set title %}{{ 'Courier_AddCourierIntegration'|translate }}{% endset %}
 
 {% block content %}
     {% import 'macros.twig' as piwik %}
@@ -24,8 +24,6 @@
                  data-title="Description"
                  inline-help="This is a textarea. It automatically gets larger the more text is entered.">
             </div>
-
-
 
             <input type="submit" class="submit btn btn-lg" id='submitEndpoint' value="{{ 'General_Save'|translate }}"/>
         {% else %}

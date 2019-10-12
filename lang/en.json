@@ -1,6 +1,11 @@
 {
   "Courier": {
     "Courier": "Courier",
-    "AddCourierEndpoint": "Add Courier Endpoint"
+    "AddCourierIntegration": "Add Courier Integration",
+    "ExistingIntegrations": "Existing integrations",
+    "Name": "Name",
+    "Type": "Type",
+    "IntegrationName": "Name",
+    "IntegrationDescription": "Description"
   }
 }

@@ -1,21 +1,43 @@
 {% extends 'admin.twig' %}
 
-{% set title %}{{ 'Courier_AddCourierEndpoint'|translate }}{% endset %}
+{% set title %}{{ 'Courier_Courier'|translate }}{% endset %}
 
 {% block content %}
-{% import 'macros.twig' as piwik %}
-    <div piwik-content-intro>
-        <h2 piwik-enriched-headline
+
+    {% import 'macros.twig' as piwik %}
+    <h2 piwik-enriched-headline
             help-url="https://github.com/digitalist-se/Courier/wiki"
             id="location-providers">{{ title }}</h2>
     </div>
-<div piwik-content-block>
 
-    {% for key,value in endpoints %}
-        <div class="courier-endpoints">
-            <div><a href="?module=Courier&endpoint={{ key }}&action=addendpoint"><img src="/plugins/Courier/assets/images/{{ key }}.png" class="courier-endpoint-image-listed" alt="{{ value.name }}" /></a></div>
-            <p>{{ value.description }}</p>
+    <div piwik-content-intro>
+        <div piwik-content-block>
+            <p>For more information about how to use Courier, click the help icon at the heading above.</p>
         </div>
-    {% endfor %}
-</div>
+    </div>
+    <div piwik-content-block>
+
+        <h3>{{ 'Courier_AddCourierIntegration'|translate }}</h3>
+
+        <table piwik-content-table>
+            <thead><tr><th>{{ 'Courier_IntegrationName'|translate }}</th><th>{{ 'Courier_IntegrationDescription'|translate }}</th></tr></thead>
+            <tbody>
+            {% for key,value in endpoints %}
+                <tr><td><a href="?module=Courier&endpoint={{ key }}&action=addendpoint"><img src="/plugins/Courier/assets/images/{{ key }}.png" class="courier-endpoint-image-listed" alt="{{ value.name }}" /></a>
+                    </td>
+                    <td><a href="?module=Courier&endpoint={{ key }}&action=addendpoint"> {{ value.description }}</a> </td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <h3>{{ 'Courier_ExistingIntegrations'|translate }}</h3>
+        <table piwik-content-table>
+            <thead><tr><th>{{ 'Courier_Name'|translate }}</th><th>Edit</th><th>Delete</th><th>{{ 'Courier_Type'|translate }}</th></tr></thead>
+            <tbody>
+        {% for integration in integrations %}
+            <tr><td> {{ integration.name }}</td><td><a href="#" class="icon-edit courier-no-border"></a></td> <td><a href="#" class="icon-delete courier-no-border"></a></td></td><td> {{ integration.type }}</td></tr>
+        {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
