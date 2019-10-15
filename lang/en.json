@@ -6,6 +6,7 @@
     "Name": "Name",
     "Type": "Type",
     "IntegrationName": "Name",
-    "IntegrationDescription": "Description"
+    "IntegrationDescription": "Description",
+    "DeleteCourierIntegration": "Delete integration"
   }
 }

@@ -1,0 +1,26 @@
+{% extends 'admin.twig' %}
+
+{% set title %}{{ 'Courier_DeleteCourierIntegration'|translate }}{% endset %}
+
+{% block content %}
+
+    <div piwik-alert="warning">
+        <strong>Warning!</strong> You are about to delete an integration.
+    </div>
+    {% import 'macros.twig' as piwik %}
+    {% import 'ajaxMacros.twig' as ajax %}
+    <div piwik-content-intro>
+        <h2 piwik-enriched-headline
+            help-url="https://github.com/digitalist-se/Courier/wiki"
+            id="location-providers">{{ title }}</h2>
+    </div>
+    <div piwik-content-block>
+        Do you really want to delete the integration <strong>{{ integration.name }}</strong> ?
+
+
+        <div piwik-content-block>
+            <div><a class="btn" href="?module=Courier&integration={{ integration.id }}&name={{ integration.name }}&action=confirmdelete">Yes</a> <a class="btn" href="?module=Courier&integration={{ integration.id }}&action=index">No</a></div>
+        </div>
+
+    </div>
+{% endblock %}

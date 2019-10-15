@@ -66,11 +66,27 @@ class API extends \Piwik\Plugin\API
         }
     }
 
-    public function getExistingIntegrations() {
+
+    public function getExistingIntegration($id)
+    {
+        $query = "SELECT * FROM " . Common::prefixTable('courier_integration') . " WHERE id=" . $id;
+        $result = $this->getDb()->fetchRow($query);
+        return $result;
+    }
+
+    public function getExistingIntegrations()
+    {
         $query = "SELECT * FROM " . Common::prefixTable('courier_integration');
         $results = $this->getDb()->fetchAll($query);
         return $results;
+    }
 
+    public function deleteIntegration($id)
+    {
+        $query = "DELETE FROM " . Common::prefixTable('courier_integration') . " WHERE id=" . $id;
+        $result = $this->getDb()->query($query);
+        $foo ='bar';
+        return $result;
     }
 
     private function getDb()
@@ -78,7 +94,8 @@ class API extends \Piwik\Plugin\API
         return Db::get();
     }
 
-    public function sendWebhook($id, $send, $source) {
+    public function sendWebhook($id, $send, $source)
+    {
         $webhook = $this->getWebhook($id);
         $integration = $webhook['integration'];
         $result = unserialize($integration);
@@ -90,23 +107,24 @@ class API extends \Piwik\Plugin\API
         ]);
     }
 
-    private function webhookCurl($endpoint, $message) {
+    private function webhookCurl($endpoint, $message)
+    {
 
         $webhookurl = $endpoint;
         $make_json = json_encode($message);
-        $ch = curl_init( $webhookurl );
-        curl_setopt( $ch, CURLOPT_POST, 1);
-        curl_setopt( $ch, CURLOPT_POSTFIELDS, $make_json);
-        curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt( $ch, CURLOPT_HEADER, 0);
-        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
-        $response = curl_exec( $ch );
+        $ch = curl_init($webhookurl);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $make_json);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $response = curl_exec($ch);
     }
-    private function getWebhook($id) {
+    private function getWebhook($id)
+    {
         $query = "SELECT * FROM " . Common::prefixTable('courier_integration') . " WHERE id=$id";
         $results = $this->getDb()->fetchRow($query);
         $foo = 'bar';
         return $results;
     }
-
 }

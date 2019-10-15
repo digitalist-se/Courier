@@ -29,7 +29,46 @@ class Controller extends ControllerAdmin
         ]);
     }
 
-    public function addendpoint()
+    public function confirmdelete()
+    {
+        $id = '';
+        $name = '';
+        try {
+            $id = Common::getRequestVar('integration', null, 'string');
+            $this->confirmdeleteIntegration($id);
+        } catch (\Exception $e) {
+        }
+        try {
+            $name = Common::getRequestVar('name', null, 'string');
+            $this->confirmdeleteIntegration($id);
+        } catch (\Exception $e) {
+        }
+
+        $notification = new Notification("Integration $name was deleted successfully");
+        $notification->context = Notification::CONTEXT_SUCCESS;
+        $notification->type = Notification::TYPE_TOAST;
+        Notification\Manager::notify(Common::getRandomString(), $notification);
+        try {
+            $this->redirectToIndex('Courier', 'index');
+        } catch (NoPrivilegesException $e) {
+        } catch (NoWebsiteFoundException $e) {
+        }
+    }
+
+    public function deleteintegration()
+    {
+
+        try {
+            $id = Common::getRequestVar('integration', null, 'string');
+        } catch (\Exception $e) {
+        }
+
+        return $this->renderTemplate('@Courier/delete', [
+            'integration' =>  $this->existingIntegration($id),
+        ]);
+    }
+
+    public function addintegration()
     {
         try {
             $type = Common::getRequestVar('endpoint', 'webhook', 'string');
@@ -67,6 +106,7 @@ class Controller extends ControllerAdmin
     {
         $api = new CourierAPI();
         return $api->getIntegrations();
+        $this->confirmdeleteIntegration($id);
     }
 
     private function existingIntegrations()
@@ -74,5 +114,14 @@ class Controller extends ControllerAdmin
         $api = new CourierAPI();
         return $api->getExistingIntegrations();
     }
-
+    private function existingIntegration(int $id)
+    {
+        $api = new CourierAPI();
+        return $api->getExistingIntegration($id);
+    }
+    private function confirmdeleteIntegration(int $id)
+    {
+        $api = new CourierAPI();
+        $delete = $api->deleteIntegration($id);
+    }
 }

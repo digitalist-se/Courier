@@ -23,19 +23,27 @@
             <thead><tr><th>{{ 'Courier_IntegrationName'|translate }}</th><th>{{ 'Courier_IntegrationDescription'|translate }}</th></tr></thead>
             <tbody>
             {% for key,value in endpoints %}
-                <tr><td><a href="?module=Courier&endpoint={{ key }}&action=addendpoint"><img src="/plugins/Courier/assets/images/{{ key }}.png" class="courier-endpoint-image-listed" alt="{{ value.name }}" /></a>
+                <tr><td><a href="?module=Courier&endpoint={{ key }}&action=addintegration"><img src="/plugins/Courier/assets/images/{{ key }}.png" class="courier-endpoint-image-listed" alt="{{ value.name }}" /></a>
                     </td>
-                    <td><a href="?module=Courier&endpoint={{ key }}&action=addendpoint"> {{ value.description }}</a> </td></tr>
+                    <td><a href="?module=Courier&endpoint={{ key }}&action=addintegration"> {{ value.description }}</a> </td></tr>
             {% endfor %}
             </tbody>
         </table>
 
         <h3>{{ 'Courier_ExistingIntegrations'|translate }}</h3>
         <table piwik-content-table>
-            <thead><tr><th>{{ 'Courier_Name'|translate }}</th><th>Edit</th><th>Delete</th><th>{{ 'Courier_Type'|translate }}</th></tr></thead>
+            <thead><tr><th class="center">{{ 'Courier_Name'|translate }}</th><th class="center">{{ 'Courier_Type'|translate }}</th><th class="center">Actions</th></tr></thead>
             <tbody>
         {% for integration in integrations %}
-            <tr><td> {{ integration.name }}</td><td><a href="#" class="icon-edit courier-no-border"></a></td> <td><a href="#" class="icon-delete courier-no-border"></a></td></td><td> {{ integration.type }}</td></tr>
+            <tr>
+                <td> {{ integration.name }}</td>
+                <td> {{ integration.type }}</td>
+                <td class="actions-cell">
+                    <a class="btn-flat btn-large" href="?module=Courier&integration={{ integration.id }}&action=editintegration"><span class="icon-edit"></span></a>
+                    <a class="btn-flat btn-large" href="?module=Courier&integration={{ integration.id }}&action=deleteintegration"><span class="icon-delete"></span></a>
+
+                </td>
+            </tr>
         {% endfor %}
             </tbody>
         </table>

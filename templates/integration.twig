@@ -20,11 +20,6 @@
             <label for="endpoint">URL</label>
             <input type="text" size="30" id="endpoint" name="url" placeholder="https://webhook.url" />
 
-            <div piwik-field uicontrol="textarea" name="description"
-                 data-title="Description"
-                 inline-help="This is a textarea. It automatically gets larger the more text is entered.">
-            </div>
-
             <input type="submit" class="submit btn btn-lg" id='submitEndpoint' value="{{ 'General_Save'|translate }}"/>
         {% else %}
             Sorry, this integration is not supported yet.
