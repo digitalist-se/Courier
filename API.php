@@ -66,6 +66,21 @@ class API extends \Piwik\Plugin\API
         }
     }
 
+    public function updateIntegration($id, $name, $integration)
+    {
+        try {
+            Piwik::checkUserIsNotAnonymous();
+        } catch (NoAccessException $e) {
+        }
+        $params = [$name, $integration, $id];
+        $query = "UPDATE " . Common::prefixTable("courier_integration") .
+            " SET name = ?, integration = ?  WHERE id = ?";
+
+        try {
+            Db::query($query, $params);
+        } catch (\Exception $e) {
+        }
+    }
 
     public function getExistingIntegration($id)
     {

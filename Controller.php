@@ -35,10 +35,6 @@ class Controller extends ControllerAdmin
         $name = '';
         try {
             $id = Common::getRequestVar('integration', null, 'string');
-            $this->confirmdeleteIntegration($id);
-        } catch (\Exception $e) {
-        }
-        try {
             $name = Common::getRequestVar('name', null, 'string');
             $this->confirmdeleteIntegration($id);
         } catch (\Exception $e) {
@@ -67,6 +63,55 @@ class Controller extends ControllerAdmin
             'integration' =>  $this->existingIntegration($id),
         ]);
     }
+
+    public function edit()
+    {
+
+
+        if (isset($_SERVER['REQUEST_METHOD']) && 'POST' == $_SERVER['REQUEST_METHOD']) {
+            try {
+                $type = Common::getRequestVar('type', null, 'string');
+                $id = Common::getRequestVar('id', null, 'string');
+                $name = Common::getRequestVar('name', null, 'string');
+                $url = Common::getRequestVar('url', null, 'string');
+            } catch (\Exception $e) {
+            }
+
+            if ($type == 'webhook') {
+                $integration = [
+                    'url' => $url
+                ];
+            }
+
+            $serialized = serialize($integration);
+            $save = new CourierAPI();
+            $save->updateIntegration($id, $name, $serialized);
+            $notification = new Notification("$name was updated successfully");
+            $notification->context = Notification::CONTEXT_SUCCESS;
+            $notification->type = Notification::TYPE_TOAST;
+            Notification\Manager::notify(Common::getRandomString(), $notification);
+            try {
+                $this->redirectToIndex('Courier', 'index');
+            } catch (NoPrivilegesException $e) {
+            } catch (NoWebsiteFoundException $e) {
+            }
+        }
+
+        try {
+            $id = Common::getRequestVar('integration', null, 'string');
+        } catch (\Exception $e) {
+        }
+
+        $integration = $this->existingIntegration($id);
+        $integration_settings = $integration['integration'];
+        $settings = unserialize($integration_settings);
+
+        return $this->renderTemplate('@Courier/edit', [
+            'integration' =>  $integration,
+            'settings' => $settings,
+        ]);
+    }
+
 
     public function addintegration()
     {

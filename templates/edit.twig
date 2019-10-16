@@ -1,0 +1,30 @@
+{% extends 'admin.twig' %}
+
+{% set title %}{{ 'Courier_EditCourierIntegration'|translate }}{% endset %}
+
+
+
+{% block content %}
+    {% import 'macros.twig' as piwik %}
+    {% import 'ajaxMacros.twig' as ajax %}
+    <div piwik-content-intro>
+        <h2 piwik-enriched-headline
+            help-url="https://github.com/digitalist-se/Courier/wiki"
+            id="location-providers">{{ title }}</h2>
+    </div>
+    <div piwik-content-block>
+
+        <form action="" method="post" ng-non-bindable>
+
+                <label for="name">Name</label>
+                <input type="text" size="30" id="name" name="name" value="{{ integration.name }}" />
+                <label for="endpoint">URL</label>
+                <input type="text" size="30" id="endpoint" name="url" value="{{ settings.url }}" />
+                <input type="hidden" id="type" name="type" value="{{ integration.type }}" />
+                <input type="hidden" id="id" name="id" value="{{ integration.id }}" />
+                <input type="submit" class="submit btn btn-lg" id='submitEndpoint' value="{{ 'Courier_Update'|translate }}"/>
+
+        </form>
+
+    </div>
+{% endblock %}

@@ -7,6 +7,8 @@
     "Type": "Type",
     "IntegrationName": "Name",
     "IntegrationDescription": "Description",
-    "DeleteCourierIntegration": "Delete integration"
+    "DeleteCourierIntegration": "Delete integration",
+    "Update": "Update",
+    "EditCourierIntegration": "Edit"
   }
 }
