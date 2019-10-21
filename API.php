@@ -20,7 +20,6 @@ use Piwik\Piwik;
  */
 class API extends \Piwik\Plugin\API
 {
-
     public function getIntegrations()
     {
 
@@ -50,19 +49,21 @@ class API extends \Piwik\Plugin\API
     }
 
 
-    public function saveIntegration($type, $name, $integration)
+    public function saveIntegration($type, $name, $integration, bool $execute = true)
     {
         try {
             Piwik::checkUserIsNotAnonymous();
         } catch (NoAccessException $e) {
         }
-        $created_date = date("Y-m-d H:i:s");
-        $insert = "INSERT INTO " . Common::prefixTable('courier_integration') .
-            " (type, name, integration, date) VALUES (?,?,?,?)";
-        $values = [$type, $name, $integration, $created_date];
-        try {
-            Db::query($insert, $values);
-        } catch (\Exception $e) {
+        if ($execute === true) {
+            $created_date = date("Y-m-d H:i:s");
+            $insert = "INSERT INTO " . Common::prefixTable('courier_integration') .
+                " (type, name, integration, date) VALUES (?,?,?,?)";
+            $values = [$type, $name, $integration, $created_date];
+            try {
+               $query = Db::query($insert, $values);
+            } catch (\Exception $e) {
+            }
         }
     }
 
@@ -84,7 +85,7 @@ class API extends \Piwik\Plugin\API
 
     public function getExistingIntegration($id)
     {
-        $query = "SELECT * FROM " . Common::prefixTable('courier_integration') . " WHERE id=" . $id;
+        $query = "SELECT * FROM " . Common::prefixTable('courier_integration') . " WHERE id='" . $id . "'";
         $result = $this->getDb()->fetchRow($query);
         return $result;
     }
@@ -98,11 +99,26 @@ class API extends \Piwik\Plugin\API
 
     public function deleteIntegration($id)
     {
-        $query = "DELETE FROM " . Common::prefixTable('courier_integration') . " WHERE id=" . $id;
+        $query = "DELETE FROM " . Common::prefixTable('courier_integration') . " WHERE id='" . $id . "'";
         $result = $this->getDb()->query($query);
-        $foo ='bar';
         return $result;
     }
+
+
+    /**
+     * @param $name
+     * @return \PDOStatement|\Zend_Db_Statement
+     * @throws \Piwik\Tracker\Db\DbException
+     *
+     */
+    public function getIdIntegrationByName($name)
+    {
+        $query = "SELECT id FROM " . Common::prefixTable('courier_integration') . " WHERE name='" . $name . "'";
+        $id = $this->getDb()->fetchOne($query);
+        return $id;
+    }
+
+
 
     private function getDb()
     {

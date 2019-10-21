@@ -15,3 +15,9 @@ format. Output is like:
 ```json
 {"sender":"Matomo","message":"Bar is the new Foo"}
 ```
+
+## Tests
+Test for the plugin could be runned by:
+```
+./console tests:run Courier
+```
