@@ -150,12 +150,17 @@ class API extends \Piwik\Plugin\API
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $response = curl_exec($ch);
+        if( ! $result = curl_exec($ch))
+        {
+            trigger_error(curl_error($ch));
+        }
+        curl_close($ch);
+        return $result;
     }
     private function getWebhook($id)
     {
         $query = "SELECT * FROM " . Common::prefixTable('courier_integration') . " WHERE id=$id";
         $results = $this->getDb()->fetchRow($query);
-        $foo = 'bar';
         return $results;
     }
 }

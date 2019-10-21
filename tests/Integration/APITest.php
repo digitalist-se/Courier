@@ -81,4 +81,14 @@ class APITest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $getUpdatedIntegration);
         $this->assertContains( 'testWebhookCourier', $getUpdatedIntegration);
     }
+
+    /**
+     * Update integration url
+     */
+    public function testDeleteTestWebhook()
+    {
+        $api = new API();
+        $id = $api->getIdIntegrationByname($this->integrationName);
+        $api->deleteIntegration($id);
+    }
 }
