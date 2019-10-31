@@ -39,7 +39,7 @@ class APITest extends \PHPUnit_Framework_TestCase
     {
         $api = new API();
         $id = $api->getIdIntegrationByName($this->integrationName);
-        $this->assertInternalType("string", $id);
+        $this->assertInternalType("int", $id);
     }
 
     /**
@@ -83,7 +83,7 @@ class APITest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Update integration url
+     * Delete the test webhook
      */
     public function testDeleteTestWebhook()
     {

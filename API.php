@@ -85,6 +85,10 @@ class API extends \Piwik\Plugin\API
 
     public function getExistingIntegration($id)
     {
+        try {
+            Piwik::checkUserIsNotAnonymous();
+        } catch (NoAccessException $e) {
+        }
         $query = "SELECT * FROM " . Common::prefixTable('courier_integration') . " WHERE id='" . $id . "'";
         $result = $this->getDb()->fetchRow($query);
         return $result;
@@ -92,6 +96,10 @@ class API extends \Piwik\Plugin\API
 
     public function getExistingIntegrations()
     {
+        try {
+            Piwik::checkUserIsNotAnonymous();
+        } catch (NoAccessException $e) {
+        }
         $query = "SELECT * FROM " . Common::prefixTable('courier_integration');
         $results = $this->getDb()->fetchAll($query);
         return $results;
@@ -99,6 +107,10 @@ class API extends \Piwik\Plugin\API
 
     public function deleteIntegration($id)
     {
+        try {
+            Piwik::checkUserIsNotAnonymous();
+        } catch (NoAccessException $e) {
+        }
         $query = "DELETE FROM " . Common::prefixTable('courier_integration') . " WHERE id='" . $id . "'";
         $result = $this->getDb()->query($query);
         return $result;
@@ -107,15 +119,18 @@ class API extends \Piwik\Plugin\API
 
     /**
      * @param $name
-     * @return \PDOStatement|\Zend_Db_Statement
-     * @throws \Piwik\Tracker\Db\DbException
+     * @return int
      *
      */
     public function getIdIntegrationByName($name)
     {
+        try {
+            Piwik::checkUserIsNotAnonymous();
+        } catch (NoAccessException $e) {
+        }
         $query = "SELECT id FROM " . Common::prefixTable('courier_integration') . " WHERE name='" . $name . "'";
         $id = $this->getDb()->fetchOne($query);
-        return $id;
+        return  (int) $id;
     }
 
 
@@ -127,6 +142,10 @@ class API extends \Piwik\Plugin\API
 
     public function sendWebhook($id, $send, $source)
     {
+        try {
+            Piwik::checkUserIsNotAnonymous();
+        } catch (NoAccessException $e) {
+        }
         $webhook = $this->getWebhook($id);
         $integration = $webhook['integration'];
         $result = unserialize($integration);
@@ -149,7 +168,6 @@ class API extends \Piwik\Plugin\API
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $response = curl_exec($ch);
         if( ! $result = curl_exec($ch))
         {
             trigger_error(curl_error($ch));
